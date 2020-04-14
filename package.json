@@ -1,34 +1,32 @@
 {
   "name": "crypto-assignment",
-  "version": "1.0.0",
-  "description": "Topic: We would like you to write a Bitcoin web app preferably in Typescript that supports the following operations:",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx webpack",
-    "web": "npx http-server ./dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skybach/crypto-assignment.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/skybach/crypto-assignment/issues"
-  },
-  "homepage": "https://github.com/skybach/crypto-assignment#readme",
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-typescript": "^7.9.0",
-    "babel-loader": "^8.1.0",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "bip39": "^3.0.2",
-    "bitcoinjs-lib": "^5.1.7"
+    "core-js": "^3.6.4",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.4.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "@vue/cli-plugin-babel": "~4.3.0",
+    "@vue/cli-plugin-eslint": "~4.3.0",
+    "@vue/cli-plugin-typescript": "~4.3.0",
+    "@vue/cli-service": "~4.3.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "prettier": "^1.19.1",
+    "typescript": "~3.8.3",
+    "vue-template-compiler": "^2.6.11"
   }
 }

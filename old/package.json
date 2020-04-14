@@ -1,0 +1,34 @@
+{
+  "name": "crypto-assignment",
+  "version": "1.0.0",
+  "description": "Topic: We would like you to write a Bitcoin web app preferably in Typescript that supports the following operations:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack",
+    "web": "npx http-server ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skybach/crypto-assignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skybach/crypto-assignment/issues"
+  },
+  "homepage": "https://github.com/skybach/crypto-assignment#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "bip39": "^3.0.2",
+    "bitcoinjs-lib": "^5.1.7"
+  }
+}
