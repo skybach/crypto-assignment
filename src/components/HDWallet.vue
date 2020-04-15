@@ -1,15 +1,15 @@
 <template>
   <div>
     <h1>HD Wallet Segwit Generator</h1>
-    <v-ons-form>
-      <v-ons-label>Use the button to generate a secure mnemonic if you do not already have one</v-ons-label>
-      <v-ons-button v-on:click.prevent="generateMnemonic">Generate Mnemonic</v-ons-button>
-      <v-ons-textarea v-model="mnemonic" placeholder="Enter your mnemonic here"></v-ons-textarea>
-      <v-ons-input v-model="hdPath" />
-      <v-ons-button v-on:click.prevent="generateSegwit">Generate Segwit</v-ons-button>
+    <b-form>
+      <b-label>Use the button to generate a secure mnemonic if you do not already have one</b-label>
+      <b-button v-on:click.prevent="generateMnemonic">Generate Mnemonic</b-button>
+      <b-textarea v-model="mnemonic" placeholder="Enter your mnemonic here"></b-textarea>
+      <b-input v-model="hdPath" />
+      <b-button v-on:click.prevent="generateSegwit">Generate Segwit</b-button>
 
       {{ segwitAddress }}
-    </v-ons-form>
+    </b-form>
   </div>
 </template>
 

@@ -1,16 +1,16 @@
 import Vue from "vue";
 import App from "./App.vue";
 
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+
 Vue.config.productionTip = false;
 
-// Webpack CSS import
-import 'onsenui/css/onsenui.css';
-import 'onsenui/css/onsen-css-components.css';
-
-// JS import
-import VueOnsen from 'vue-onsenui'; // This imports 'onsenui', so no need to import it separately
-
-Vue.use(VueOnsen); // VueOnsen set here as plugin to VUE. Done automatically if a call to window.Vue exists in the startup code.
+// Install BootstrapVue
+Vue.use(BootstrapVue);
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin);
 
 new Vue({
   render: h => h(App)
