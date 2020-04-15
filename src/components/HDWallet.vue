@@ -1,18 +1,21 @@
 <template>
   <div>
-    <h1>HD Wallet Segwit Generator</h1>
+    <h1>HD Segwit Address Generator</h1>
     <b-form>
-      <b-form-group label="Step 1 : Use the button to generate a secure mnemonic if you do not already have one" :invalid-feedback="invalidMnemonicFeedback" :state="isValidMnemonic" >
-        <b-input v-model="mnemonic" :state="isValidMnemonic" placeholder="Enter your mnemonic here"></b-input>
+      <b-form-group label="Step 1 : Use the button to generate a secure mnemonic and seed if you do not already have one">
+        <b-button v-on:click.prevent="generateMnemonic">Generate Mnemonic and Seed</b-button>
       </b-form-group>
       <b-form-group>
-        <b-button v-on:click.prevent="generateMnemonic">Generate Mnemonic</b-button>
-      </b-form-group>
-      <b-form-group label="Step 2 : Enter the hd path for the address" :invalid-feedback="invalidHdPathFeedback" :state="isValidHdPath">
-        <b-input v-model="hdPath" :disabled="!isValidMnemonic" />
+        <b-input v-model="mnemonic" readonly placeholder="No mnemonic generated"></b-input>
       </b-form-group>
       <b-form-group>
-        <b-button variant="primary" v-on:click.prevent="generateSegwit" :disabled="!isValidMnemonic">Generate Segwit</b-button>
+        <b-input v-model="seed" placeholder="or just enter your seed here"></b-input>
+      </b-form-group>
+      <b-form-group label="Step 2 : Enter the hd path for the address">
+        <b-input v-model="hdPath" />
+      </b-form-group>
+      <b-form-group :invalid-feedback="invalidFeedback" :state="!invalidFeedback">
+        <b-button variant="primary" v-on:click.prevent="generateSegwit">Generate Segwit</b-button>
       </b-form-group>
 
       
@@ -41,38 +44,40 @@ export default class HDWallet extends Vue {
 
   @Provide() segwitAddress = "";
   @Provide() mnemonic = "";
-  @Provide() hdPath = "m/44'/0'/0'/0/0";
+  @Provide() seed = "";
+  @Provide() hdPath = "m/49'/0'/0'/0/0";
 
-  @Provide() isValidMnemonic = false;
-  @Provide() invalidMnemonicFeedback = "";
-  @Provide() isValidHdPath = true;
-  @Provide() invalidHdPathFeedback = "";
+  @Provide() invalidFeedback = "";
   @Provide() btcutils = new BitcoinUtils();
 
   @Watch('mnemonic')
   onMnemonicChanged(val: string, oldVal: string) {
-    this.isValidMnemonic = this.btcutils.validateMnemonic(val);
-    this.invalidMnemonicFeedback = this.isValidMnemonic?"":"Invalid mnemonic. You may want to generate one instead of entering your own";
- }
+    this.seed = this.btcutils.generateSeedFromMnemonic(this.mnemonic).toString('hex');
+  }
+
+  @Watch('seed')
+  onSeedChanged(val: string, oldVal: string) {
+    this.invalidFeedback = "";
+  }
+
+  @Watch('hdPAth')
+  onHdPathChanged(val: string, oldVal: string) {
+    this.invalidFeedback = "";
+  }
 
   @Emit()
   generateMnemonic() {
-    console.log('generate mnemonic');
     this.mnemonic = this.btcutils.generateMnemonic();
   }
 
   @Emit()
   generateSegwit() {
     try {
-      console.log('generate segwit');
-      this.segwitAddress = this.btcutils.generateSegwitFromMnemonic(this.mnemonic, this.hdPath) as string;
-      this.invalidHdPathFeedback = '';
-      this.isValidHdPath = true;
+      this.segwitAddress = this.btcutils.generateSegwitFromSeed(Buffer.from(this.seed, "hex"), this.hdPath) as string;
+      this.invalidFeedback = '';
       this.$bvModal.show("modal");
-    } catch (errors) {
-      console.log(errors);
-      this.invalidHdPathFeedback = 'HD Path is invalid';
-      this.isValidHdPath = false;
+    } catch (error) {
+      this.invalidFeedback = `Error generating Segwit address. ${error.message}`;
     }
   }
 
