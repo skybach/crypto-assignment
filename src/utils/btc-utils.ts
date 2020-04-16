@@ -34,13 +34,8 @@ export class BitcoinUtils {
 
     generateNOfMSig(s: string[], m: number): string {
         const pubkeys = s.map(hex => Buffer.from(hex, 'hex'));
-        // const { address } = bitcoin.payments.p2sh({
-        //     redeem: bitcoin.payments.p2ms({ m: m, pubkeys }),
-        // });
         const { address } = bitcoin.payments.p2sh({
-            // redeem: bitcoin.payments.p2wsh({
-              redeem: bitcoin.payments.p2ms({ m: m, pubkeys })
-            // })
+            redeem: bitcoin.payments.p2ms({ m: m, pubkeys })
         })
         return address as string;
     }
