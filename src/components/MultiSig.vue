@@ -9,13 +9,11 @@
         <b-input type="number" :min="1" :max="addresses.length" v-model="approveNum" />
       </b-form-group>
       <b-form-group :invalid-feedback="invalidFeedback" :state="!invalidFeedback">
-        <b-button variant="primary" v-on:click.prevent="generateMultiSig">Generate Mutli Sig</b-button>
+        <b-button variant="primary" v-on:click.prevent="generateMultiSig" :disabled="addresses.length == 0">Generate Mutli Sig</b-button>
       </b-form-group>
-
-      
     </b-form>
 
-    <b-modal id="modal" title="Generated Multi Sig Address">
+    <b-modal id="multisig-modal" title="Generated Multi Sig Address">
       <p class="my-4">To prevent human errors, please copy this address</p>
       
       <p class="my-4">
@@ -47,9 +45,9 @@ export default class MultiSig extends Vue {
   @Emit()
   generateMultiSig() {
     try {
-      this.multiSigAddress = this.btcutils.generateNOfMSegwit(this.addresses, this.approveNum) as string;
+      this.multiSigAddress = this.btcutils.generateNOfMSig(this.addresses, this.approveNum) as string;
       this.invalidFeedback = '';
-      this.$bvModal.show("modal");
+      this.$bvModal.show("multisig-modal");
     } catch (error) {
       this.invalidFeedback = `Error generating Multi Sig address. ${error.message}`;
     }
@@ -57,7 +55,14 @@ export default class MultiSig extends Vue {
 
   @Watch('text')
   onTextChanged(val: string, oldVal: string) {
-    this.addresses = val.split("\n");
+    this.addresses = val.split("\n").filter((s) => {
+      return s.length > 0;
+    });
+  }
+
+  @Watch('approveNum')
+  onApproveNumChanged(val: string, oldVal: string) {
+    this.approveNum = parseInt(val);
   }
 
   @Emit()

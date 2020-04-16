@@ -21,7 +21,7 @@
       
     </b-form>
 
-    <b-modal id="modal" title="Generated Segwit Address">
+    <b-modal id="hdwallet-modal" title="Generated Segwit Address">
       <p class="my-4">To prevent human errors, please copy this address</p>
       
       <p class="my-4">
@@ -75,7 +75,7 @@ export default class HDWallet extends Vue {
     try {
       this.segwitAddress = this.btcutils.generateSegwitFromSeed(Buffer.from(this.seed, "hex"), this.hdPath) as string;
       this.invalidFeedback = '';
-      this.$bvModal.show("modal");
+      this.$bvModal.show("hdwallet-modal");
     } catch (error) {
       this.invalidFeedback = `Error generating Segwit address. ${error.message}`;
     }
