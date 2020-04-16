@@ -38,9 +38,9 @@ export class BitcoinUtils {
         //     redeem: bitcoin.payments.p2ms({ m: m, pubkeys }),
         // });
         const { address } = bitcoin.payments.p2sh({
-            redeem: bitcoin.payments.p2wsh({
-              redeem: bitcoin.payments.p2ms({ m: 2, pubkeys })
-            })
+            // redeem: bitcoin.payments.p2wsh({
+              redeem: bitcoin.payments.p2ms({ m: m, pubkeys })
+            // })
         })
         return address as string;
     }
